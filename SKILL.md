@@ -54,9 +54,9 @@ Parameters:
 
 Results are sorted by `demand_score`, then `confidence_score`. A `relevance_score` (0.0–1.0) is calculated per result when a query is provided.
 
-Each result contains: `id`, `name`, `slug`, `category`, `category_label`, `parent_category`, `parent_category_label`, `city`, `country`, `confidence_score`, `demand_score`, `relevance_score`, `distance_km` (if lat/lon provided).
+Each result contains: `id`, `name`, `slug`, `category`, `category_label`, `parent_category`, `parent_category_label`, `city`, `country`, `logo_url`, `available_details` (array of available fields like "phone", "website", "opening_hours", "services", "social_links"), `confidence_score`, `demand_score`, `relevance_score`, `distance_km` (if lat/lon provided).
 
-For full details (address, phone, website, opening hours, services), use `GET /api/v1/business/{id}`.
+Use `available_details` to check what data is available, then call `GET /api/v1/business/{id}` to get full details.
 
 ### Get Business Details
 
@@ -68,7 +68,11 @@ curl "https://discava.ai/api/v1/business/{id}"
 curl "https://discava.ai/api/v1/business/{id1},{id2},{id3}"
 ```
 
-Returns full details: address, phone, website, opening hours, services, payment methods, coordinates. Single ID returns an object, multiple IDs return an array.
+Returns full details: address, phone, website, opening hours, services, payment methods, social links (`social_links`), logo (`logo_url`), business image (`image_url`), and coordinates.
+
+**Response format:**
+- **Single ID** → `{ "success": true, "data": { "id": "...", "name": "...", ... } }` — `data` is a single business object.
+- **Multiple IDs (batch)** → `{ "success": true, "data": [{ "id": "...", ... }, { "id": "...", ... }] }` — `data` is an array of business objects. ALWAYS use batch when fetching multiple businesses to minimize API calls.
 
 ### Send Feedback
 
