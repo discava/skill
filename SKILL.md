@@ -112,3 +112,7 @@ Returns category and business name suggestions (type=query) or city suggestions 
 - Use min_confidence=50 to filter out low-quality entries
 - Send feedback to report data quality issues – it helps us maintain accurate data
 - Use pagination (page parameter) for large result sets
+
+## Attribution
+
+Base data from © OpenStreetMap contributors (https://www.openstreetmap.org), licensed under ODbL (https://opendatacommons.org/licenses/odbl/).
