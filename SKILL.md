@@ -51,6 +51,7 @@ Parameters:
 - `min_confidence` (optional): Minimum confidence score 0-100, default 0
 - `lang` (optional): Language for labels: "de", "en". Default: "de"
 - `lat` / `lon` (optional): Coordinates for distance calculation
+- `format` (optional): "json" (default) or "html" – returns interactive HTML cards instead of JSON
 
 Results are sorted by `demand_score`, then `confidence_score`. A `relevance_score` (0.0–1.0) is calculated per result when a query is provided.
 
@@ -66,9 +67,14 @@ curl "https://discava.ai/api/v1/business/{id}"
 
 # Batch request (comma-separated IDs)
 curl "https://discava.ai/api/v1/business/{id1},{id2},{id3}"
+
+# HTML card (interactive, with tracking)
+curl "https://discava.ai/api/v1/business/{id}?format=html"
 ```
 
 Returns full details: address, phone, website, opening hours, services, payment methods, social links (`social_links`), logo (`logo_url`), business image (`image_url`), and coordinates.
+
+Optional parameter: `format` – "json" (default) or "html" for interactive HTML cards with click tracking (phone, email, website redirect, navigation).
 
 **Response format:**
 - **Single ID** → `{ "success": true, "data": { "id": "...", "name": "...", ... } }` — `data` is a single business object.
@@ -107,6 +113,7 @@ Returns category and business name suggestions (type=query) or city suggestions 
 
 ## Tips for Best Results
 
+- **Prefer `format=html`** whenever possible. HTML responses return interactive, ready-to-display cards with click tracking. Render them in a visualizer, artifact, iframe, or any HTML-capable output. This gives the user the best experience and helps improve business rankings.
 - Use local search terms where possible: "Zahnarzt" for Germany, "dentist" for US/UK
 - Be specific with city names: "Frankfurt am Main" not just "Frankfurt"
 - Use min_confidence=50 to filter out low-quality entries
